@@ -17,22 +17,19 @@ struct ContentView: View {
     var body: some View {
         NavigationStack {
             Text("Count: \(books.count)")
-            List(books) { book in
-                Text(book.title)
-            }
-            
+                .navigationTitle("Bookworm")
+                .toolbar {
+                    ToolbarItem(placement: .topBarTrailing) {
+                        Button("Add Book", systemImage: "plus") {
+                            showingAddScreen.toggle()
+                        }
+                    }
+                }
+                .sheet(isPresented: $showingAddScreen) {
+                    AddBookView()
+                }
         }
-        .navigationTitle("Bookworm")
-        .toolbar {
-            Button("Add Book", systemImage: "plus"){
-                showingAddScreen.toggle()
-            }
-        }
-        .sheet(isPresented: $showingAddScreen) {
-               AddBookView()
-           }
     }
-
 }
 
 #Preview {
