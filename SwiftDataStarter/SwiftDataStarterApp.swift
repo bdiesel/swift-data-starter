@@ -4,7 +4,7 @@
 //
 //  Created by Brian Diesel on 1/10/25.
 //
-
+import SwiftData
 import SwiftUI
 
 @main
@@ -13,5 +13,6 @@ struct SwiftDataStarterApp: App {
         WindowGroup {
             ContentView()
         }
+        .modelContainer(for: Book.self)
     }
 }
