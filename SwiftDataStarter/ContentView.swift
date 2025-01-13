@@ -34,6 +34,7 @@ struct ContentView: View {
                         }
                     }
                 }
+                .onDelete(perform: deleteBook)
             }
             
             Text("Count: \(books.count)")
@@ -42,6 +43,10 @@ struct ContentView: View {
                     DetailView(book: book)
                 }
                 .toolbar {
+                    ToolbarItem(placement: .topBarLeading) {
+                        EditButton()
+                    }
+                    
                     ToolbarItem(placement: .topBarTrailing) {
                         Button("Add Book", systemImage: "plus") {
                             showingAddScreen.toggle()
@@ -51,6 +56,16 @@ struct ContentView: View {
                 .sheet(isPresented: $showingAddScreen) {
                     AddBookView()
                 }
+        }
+    }
+    
+    func deleteBook(at offsets: IndexSet) {
+        for offset in offsets {
+            // find this book in our query
+            let book = books[offset]
+
+            // delete it from the context
+            modelContext.delete(book)
         }
     }
 }
